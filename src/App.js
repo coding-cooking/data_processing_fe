@@ -9,7 +9,23 @@ const Container = styled.div`
 	align-items: center;
 	width: 100%;
 	height: 100%;
-	margin-top: 100px;
+	margin: 100px 0;
+`;
+
+const DashboardWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+
+	th,
+	tr,
+	td {
+		min-width: 100px;
+		text-align: center;
+	}
 `;
 
 function App() {
@@ -76,7 +92,7 @@ function App() {
 			{error && <p className='error'>{error}</p>}
 
 			{processedData && (
-				<div>
+				<DashboardWrapper>
 					<h2>Processed Data</h2>
 					<h3>Original vs Inferred Types</h3>
 					<table>
@@ -123,11 +139,10 @@ function App() {
 							))}
 						</tbody>
 					</table>
-				</div>
+				</DashboardWrapper>
 			)}
 		</Container>
 	);
 }
-
 
 export default App;
