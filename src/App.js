@@ -12,6 +12,11 @@ const Container = styled.div`
 	margin: 100px 0;
 `;
 
+const StyledForm = styled.form`
+	display: flex;
+	gap: 40px;
+`;
+
 const DashboardWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -75,19 +80,48 @@ function App() {
 		}
 	};
 
+	const handleSelect = async (e,column) => {
+		const selectedValue = e.target.value;
+		console.log(column)
+		const newProcessedData = {
+			...processedData,
+			inferred_analysis: {
+				...processedData.inferred_analysis,
+				[column]: {
+					...processedData.inferred_analysis[column],
+					inferred_type: selectedValue,
+				},
+			},
+		};
+		setProcessedData(newProcessedData);
+	}
+
+	const handleSave = async (event) => {
+		event.preventDefault();
+	};
+
 	return (
 		<Container className='App'>
 			<h1>Data Type Inference Tool</h1>
-			<form onSubmit={handleSubmit}>
+			<StyledForm>
 				<input
 					type='file'
 					onChange={handleFileChange}
 					accept='.csv,.xls,.xlsx'
 				/>
-				<button type='submit' disabled={!file || loading}>
+				<button
+					type='submit'
+					disabled={!file || loading}
+					onClick={handleSubmit}>
 					{loading ? "Processing..." : "Process File"}
 				</button>
-			</form>
+				<button 
+					type='submit' 
+					disabled={!file || loading || !processedData}
+					onClick={handleSave}>
+					Save File
+				</button>
+			</StyledForm>
 
 			{error && <p className='error'>{error}</p>}
 
@@ -101,6 +135,7 @@ function App() {
 								<th>Column</th>
 								<th>Original Type</th>
 								<th>Inferred Type</th>
+								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,6 +146,18 @@ function App() {
 										<td>{type.inferred_type}</td>
 										<td>
 											{processedData.inferred_analysis[column]?.inferred_type}
+										</td>
+										<td>
+											<select onChange={(e)=>{handleSelect(e, column)}}>
+												<option value=''>Select another type</option>
+												<option value='object'>object</option>
+												<option value='boolean'>boolean</option>
+												<option value='int64'>int64</option>
+												<option value='float64'>float64</option>
+												<option value='datetime64'>datetime64</option>
+												<option value='category'>category</option>
+												<option value='complex'>complex</option>
+											</select>
 										</td>
 									</tr>
 								)
@@ -146,3 +193,5 @@ function App() {
 }
 
 export default App;
+
+
