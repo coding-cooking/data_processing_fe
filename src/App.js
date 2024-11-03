@@ -104,6 +104,7 @@ function App() {
 					type='file'
 					onChange={handleFileChange}
 					accept='.csv,.xls,.xlsx'
+					lang='en'
 				/>
 				<button
 					type='submit'
