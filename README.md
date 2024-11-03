@@ -129,6 +129,7 @@ The backend server should now be running on [http://localhost:8000](http://local
 
 1. **Upload a CSV or Excel file**: Use the frontend to upload your dataset.
 2. **View Processed Data**: The app infers data types for each column, displaying the dataset with detected types.
+3. **Manual Override**: If desired, manually override data types from the frontend interface.
 
 ## API Documentation
 

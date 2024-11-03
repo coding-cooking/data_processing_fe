@@ -80,21 +80,21 @@ function App() {
 		}
 	};
 
-	const handleSelect = async (e,column) => {
+	const handleSelect = async (e, column) => {
 		const selectedValue = e.target.value;
-		console.log(column)
+		console.log(column);
 		const newProcessedData = {
 			...processedData,
 			inferred_analysis: {
 				...processedData.inferred_analysis,
 				[column]: {
 					...processedData.inferred_analysis[column],
-					inferred_type: selectedValue,
+					fe_type: selectedValue,
 				},
 			},
 		};
 		setProcessedData(newProcessedData);
-	}
+	};
 
 	return (
 		<Container className='App'>
@@ -133,20 +133,21 @@ function App() {
 								([column, type]) => (
 									<tr key={column}>
 										<td>{column}</td>
-										<td>{type.inferred_type}</td>
+										<td>{type.be_type}</td>
+										<td>{processedData.inferred_analysis[column]?.fe_type}</td>
 										<td>
-											{processedData.inferred_analysis[column]?.inferred_type}
-										</td>
-										<td>
-											<select onChange={(e)=>{handleSelect(e, column)}}>
+											<select
+												onChange={(e) => {
+													handleSelect(e, column);
+												}}>
 												<option value=''>Select another type</option>
-												<option value='object'>object</option>
-												<option value='boolean'>boolean</option>
-												<option value='int64'>int64</option>
-												<option value='float64'>float64</option>
-												<option value='datetime64'>datetime64</option>
-												<option value='category'>category</option>
-												<option value='complex'>complex</option>
+												<option value='Text'>Text</option>
+												<option value='Boolean'>Boolean</option>
+												<option value='Integer'>Integer</option>
+												<option value='Float'>Float</option>
+												<option value='Date'>Date</option>
+												<option value='Category'>Category</option>
+												<option value='Complex'>Complex</option>
 											</select>
 										</td>
 									</tr>
@@ -183,5 +184,3 @@ function App() {
 }
 
 export default App;
-
-
