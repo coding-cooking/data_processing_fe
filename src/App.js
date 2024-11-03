@@ -96,10 +96,6 @@ function App() {
 		setProcessedData(newProcessedData);
 	}
 
-	const handleSave = async (event) => {
-		event.preventDefault();
-	};
-
 	return (
 		<Container className='App'>
 			<h1>Data Type Inference Tool</h1>
@@ -114,12 +110,6 @@ function App() {
 					disabled={!file || loading}
 					onClick={handleSubmit}>
 					{loading ? "Processing..." : "Process File"}
-				</button>
-				<button 
-					type='submit' 
-					disabled={!file || loading || !processedData}
-					onClick={handleSave}>
-					Save File
 				</button>
 			</StyledForm>
 
